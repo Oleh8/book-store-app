@@ -3,21 +3,17 @@ package bstore.bookstore.repository;
 import bstore.bookstore.model.Book;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.PersistentObjectException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
     protected final SessionFactory sessionFactory;
-
-    @Autowired
-    public BookRepositoryImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 
     @Override
     public Book save(Book book) {
@@ -32,7 +28,7 @@ public class BookRepositoryImpl implements BookRepository {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new PersistentObjectException("Failed to save book:" + book);
+            throw new PersistentObjectException("Failed to save book" + book);
         } finally {
             if (session != null) {
                 session.close();
