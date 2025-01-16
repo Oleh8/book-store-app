@@ -1,8 +1,10 @@
 package bstore.bookstore.repository;
 
 import bstore.bookstore.model.Book;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.PersistentObjectException;
 import org.hibernate.Session;
@@ -35,6 +37,14 @@ public class BookRepositoryImpl implements BookRepository {
             }
         }
         return book;
+    }
+
+    @Override
+    public Optional<Book> findById(Long id) {
+        try (EntityManager entityManager = sessionFactory.createEntityManager()) {
+            Book book = entityManager.find(Book.class, id);
+            return Optional.ofNullable(book);
+        }
     }
 
     @Override
