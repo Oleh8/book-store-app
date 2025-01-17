@@ -44,6 +44,8 @@ public class BookRepositoryImpl implements BookRepository {
         try (EntityManager entityManager = sessionFactory.createEntityManager()) {
             Book book = entityManager.find(Book.class, id);
             return Optional.ofNullable(book);
+        } catch (Exception e) {
+            throw new PersistentObjectException("Failed to get book with id: " + id);
         }
     }
 
