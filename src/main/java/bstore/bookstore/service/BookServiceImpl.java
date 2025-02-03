@@ -7,19 +7,14 @@ import bstore.bookstore.mapper.BookMapper;
 import bstore.bookstore.model.Book;
 import bstore.bookstore.repository.BookRepository;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
-
-    @Autowired
-    public BookServiceImpl(BookRepository bookRepository, BookMapper bookMapper) {
-        this.bookRepository = bookRepository;
-        this.bookMapper = bookMapper;
-    }
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
@@ -50,12 +45,6 @@ public class BookServiceImpl implements BookService {
     public BookDto updateById(Long id, CreateBookRequestDto requestDto) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
-        book.setTitle(requestDto.getTitle());
-        book.setAuthor(requestDto.getAuthor());
-        book.setIsbn(requestDto.getIsbn());
-        book.setPrice(requestDto.getPrice());
-        book.setDescription(requestDto.getDescription());
-        book.setCoverImage(requestDto.getCoverImage());
-        return bookMapper.toDto(bookRepository.save(book));
+        return bookMapper.toDto(bookRepository.save(bookMapper.updateBook(book, requestDto)));
     }
 }
