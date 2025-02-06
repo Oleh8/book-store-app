@@ -24,6 +24,10 @@ public class BookSpecBuilder implements SpecificationBuilder<Book> {
             specification = specification.and(specProviderManager.getProvider("author")
                     .getSpecification(bookSearchParams.author()));
         }
+        if (bookSearchParams.isbn() != null && bookSearchParams.isbn().length > 0) {
+            specification = specification.and(specProviderManager.getProvider("isbn")
+                    .getSpecification(bookSearchParams.isbn()));
+        }
         return specification;
     }
 }

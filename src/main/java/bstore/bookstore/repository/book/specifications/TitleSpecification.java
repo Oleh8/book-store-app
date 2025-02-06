@@ -1,4 +1,4 @@
-package bstore.bookstore.repository.book;
+package bstore.bookstore.repository.book.specifications;
 
 import bstore.bookstore.model.Book;
 import bstore.bookstore.repository.SpecificationProvider;
