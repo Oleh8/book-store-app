@@ -4,7 +4,6 @@ import static bstore.bookstore.dto.BookSearchParams.AUTHOR;
 
 import bstore.bookstore.model.Book;
 import bstore.bookstore.repository.SpecificationProvider;
-import java.util.Arrays;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +16,7 @@ public class AuthorSpecification implements SpecificationProvider<Book> {
     }
 
     public Specification<Book> getSpecification(String[] params) {
-        return (root, query, criteriaBuilder) -> root.get(AUTHOR)
-                .in(Arrays.stream(params).toArray());
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.like(root.get(AUTHOR), "%" + params[0] + "%");
     }
 }
