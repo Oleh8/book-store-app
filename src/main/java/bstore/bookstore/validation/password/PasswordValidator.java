@@ -2,26 +2,23 @@ package bstore.bookstore.validation.password;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.apache.commons.beanutils.BeanUtils;
+import java.util.Objects;
+import org.springframework.beans.BeanWrapperImpl;
 
 public class PasswordValidator implements ConstraintValidator<FieldMatch, Object> {
-    private String firstFieldName;
-    private String secondFieldName;
+    private String field;
+    private String fieldMatch;
 
     @Override
     public void initialize(FieldMatch constraintAnnotation) {
-        this.firstFieldName = constraintAnnotation.first();
-        this.secondFieldName = constraintAnnotation.second();
+        this.field = constraintAnnotation.first();
+        this.fieldMatch = constraintAnnotation.second();
     }
 
     @Override
-    public boolean isValid(Object obj, ConstraintValidatorContext constraintValidatorContext) {
-        try {
-            String password = BeanUtils.getProperty(obj, firstFieldName);
-            String confirmPassword = BeanUtils.getProperty(obj, secondFieldName);
-            return password.equals(confirmPassword);
-        } catch (Exception e) {
-            throw new RuntimeException("Error while validating password", e);
-        }
+    public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {
+        Object field = new BeanWrapperImpl(value).getPropertyValue(this.field);
+        Object fieldMatch = new BeanWrapperImpl(value).getPropertyValue(this.fieldMatch);
+        return Objects.equals(field, fieldMatch);
     }
 }
