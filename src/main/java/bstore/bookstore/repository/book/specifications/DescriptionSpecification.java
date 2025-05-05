@@ -1,6 +1,6 @@
 package bstore.bookstore.repository.book.specifications;
 
-import static bstore.bookstore.dto.BookSearchParams.DESCRIPTION;
+import static bstore.bookstore.dto.book.BookSearchParams.DESCRIPTION;
 
 import bstore.bookstore.model.Book;
 import bstore.bookstore.repository.SpecificationProvider;

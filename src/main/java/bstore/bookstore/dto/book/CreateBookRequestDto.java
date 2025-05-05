@@ -1,6 +1,6 @@
-package bstore.bookstore.dto;
+package bstore.bookstore.dto.book;
 
-import bstore.bookstore.validation.Isbn;
+import bstore.bookstore.validation.isbn.Isbn;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
