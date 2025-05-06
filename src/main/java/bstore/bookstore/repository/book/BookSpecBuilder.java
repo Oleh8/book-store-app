@@ -1,12 +1,12 @@
 package bstore.bookstore.repository.book;
 
-import static bstore.bookstore.dto.BookSearchParams.AUTHOR;
-import static bstore.bookstore.dto.BookSearchParams.DESCRIPTION;
-import static bstore.bookstore.dto.BookSearchParams.ISBN;
-import static bstore.bookstore.dto.BookSearchParams.PRICE;
-import static bstore.bookstore.dto.BookSearchParams.TITLE;
+import static bstore.bookstore.dto.book.BookSearchParams.AUTHOR;
+import static bstore.bookstore.dto.book.BookSearchParams.DESCRIPTION;
+import static bstore.bookstore.dto.book.BookSearchParams.ISBN;
+import static bstore.bookstore.dto.book.BookSearchParams.PRICE;
+import static bstore.bookstore.dto.book.BookSearchParams.TITLE;
 
-import bstore.bookstore.dto.BookSearchParams;
+import bstore.bookstore.dto.book.BookSearchParams;
 import bstore.bookstore.model.Book;
 import bstore.bookstore.repository.SpecificationBuilder;
 import bstore.bookstore.repository.SpecificationProviderManager;

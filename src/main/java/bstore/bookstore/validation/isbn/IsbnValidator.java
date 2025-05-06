@@ -1,4 +1,4 @@
-package bstore.bookstore.validation;
+package bstore.bookstore.validation.isbn;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
