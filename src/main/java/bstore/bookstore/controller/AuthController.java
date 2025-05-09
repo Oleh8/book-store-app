@@ -1,6 +1,5 @@
 package bstore.bookstore.controller;
 
-import bstore.bookstore.dto.user.UserLoginRequestDto;
 import bstore.bookstore.dto.user.UserRegistrationRequestDto;
 import bstore.bookstore.dto.user.UserResponseDto;
 import bstore.bookstore.exception.RegistrationException;
@@ -24,9 +23,5 @@ public class AuthController {
     public UserResponseDto registerUser(@RequestBody @Valid UserRegistrationRequestDto requestDto)
             throws RegistrationException {
         return userService.registerUser(requestDto);
-    }
-
-    public boolean login(@RequestBody UserLoginRequestDto requestDto) {
-        return true;
     }
 }
