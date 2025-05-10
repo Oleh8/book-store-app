@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-users
+      author: Oleh B
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: email
+                  value: first.admin@example.com
+              - column:
+                  name: password
+                  value: 12345678
+              - column:
+                  name: first_name
+                  value: "Jane"
+              - column:
+                  name: last_name
+                  value: "Doe"
+              - column:
+                  name: shipping_address
+                  value: "123 Maple Street, Springfield, IL 62704"
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: email
+                  value: first.user@example.com
+              - column:
+                  name: password
+                  value: 11111111
+              - column:
+                  name: first_name
+                  value: "John"
+              - column:
+                  name: last_name
+                  value: "Doe"
+              - column:
+                  name: shipping_address
+                  value: "124 Maple Street, Springfield, IL 62704"
