@@ -9,11 +9,14 @@ import bstore.bookstore.model.Role;
 import bstore.bookstore.model.User;
 import bstore.bookstore.repository.role.RoleRepository;
 import bstore.bookstore.repository.user.UserRepository;
+import jakarta.transaction.Transactional;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -36,7 +39,7 @@ public class UserServiceImpl implements UserService {
         Role userRole = roleRepository.findByName(Role.RoleName.ROLE_USER)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Role not found: " + Role.RoleName.ROLE_USER));
-        user.getRoles().add(userRole);
+        user.setRoles(Set.of(userRole));
 
         userRepository.save(user);
         return userMapper.toDto(user);
