@@ -30,6 +30,7 @@ public class BookController {
 
     private final BookService bookService;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping
     @Operation(summary = "Get all books")
     public List<BookDto> getAll(Pageable pageable) {
@@ -66,6 +67,7 @@ public class BookController {
         bookService.deleteById(id);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping("/search")
     @Operation(summary = "Search books")
     public List<BookDto> search(BookSearchParams bookSearchParams, Pageable pageable) {
