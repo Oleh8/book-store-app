@@ -1,8 +1,11 @@
 package bstore.bookstore.controller;
 
+import bstore.bookstore.dto.user.UserLoginRequestDto;
+import bstore.bookstore.dto.user.UserLoginResponseDto;
 import bstore.bookstore.dto.user.UserRegistrationRequestDto;
 import bstore.bookstore.dto.user.UserResponseDto;
 import bstore.bookstore.exception.RegistrationException;
+import bstore.bookstore.security.AuthenticationService;
 import bstore.bookstore.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -17,11 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
     private final UserService userService;
+    private final AuthenticationService authenticationService;
 
     @PostMapping("/registration")
     @Operation(summary = "register new user")
     public UserResponseDto registerUser(@RequestBody @Valid UserRegistrationRequestDto requestDto)
             throws RegistrationException {
         return userService.registerUser(requestDto);
+    }
+
+    @PostMapping("/login")
+    @Operation(summary = "login")
+    public UserLoginResponseDto login(@RequestBody @Valid UserLoginRequestDto requestDto) {
+        return authenticationService.authenticate(requestDto);
     }
 }
