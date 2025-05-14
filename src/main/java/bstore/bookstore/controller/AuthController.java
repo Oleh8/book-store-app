@@ -8,6 +8,7 @@ import bstore.bookstore.exception.RegistrationException;
 import bstore.bookstore.security.AuthenticationService;
 import bstore.bookstore.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Authentication", description = "Endpoints for user login/registration")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
@@ -30,7 +32,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    @Operation(summary = "login")
+    @Operation(summary = "login user")
     public UserLoginResponseDto login(@RequestBody @Valid UserLoginRequestDto requestDto) {
         return authenticationService.authenticate(requestDto);
     }
