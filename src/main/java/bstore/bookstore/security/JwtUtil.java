@@ -1,9 +1,11 @@
 package bstore.bookstore.security;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,12 +35,6 @@ public class JwtUtil {
                 .and()
                 .signWith(secret)
                 .compact();
-//        return Jwts.builder()
-//                .setSubject(username)
-//                .setIssuedAt(new Date(System.currentTimeMillis()))
-//                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-//                .signWith(secret)
-//                .compact();
     }
 
     public boolean isValidToken(String token) {
