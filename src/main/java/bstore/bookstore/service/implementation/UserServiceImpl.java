@@ -1,4 +1,4 @@
-package bstore.bookstore.service;
+package bstore.bookstore.service.implementation;
 
 import bstore.bookstore.dto.user.UserRegistrationRequestDto;
 import bstore.bookstore.dto.user.UserResponseDto;
@@ -9,6 +9,7 @@ import bstore.bookstore.model.Role;
 import bstore.bookstore.model.User;
 import bstore.bookstore.repository.role.RoleRepository;
 import bstore.bookstore.repository.user.UserRepository;
+import bstore.bookstore.service.UserService;
 import jakarta.transaction.Transactional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
