@@ -1,6 +1,7 @@
 package bstore.bookstore.controller;
 
 import bstore.bookstore.dto.book.BookDto;
+import bstore.bookstore.dto.book.BookDtoWithoutCategoryIds;
 import bstore.bookstore.dto.book.BookSearchParams;
 import bstore.bookstore.dto.book.CreateBookRequestDto;
 import bstore.bookstore.service.BookService;
@@ -33,14 +34,14 @@ public class BookController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping
     @Operation(summary = "Get all books")
-    public List<BookDto> getAll(Pageable pageable) {
+    public List<BookDtoWithoutCategoryIds> getAll(Pageable pageable) {
         return bookService.findAll(pageable);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     @Operation(summary = "Get book by id")
-    public BookDto findBookById(@PathVariable Long id) {
+    public BookDtoWithoutCategoryIds findBookById(@PathVariable Long id) {
         return bookService.findBookById(id);
     }
 
