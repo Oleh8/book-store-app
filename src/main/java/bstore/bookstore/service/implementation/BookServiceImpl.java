@@ -1,6 +1,7 @@
-package bstore.bookstore.service;
+package bstore.bookstore.service.implementation;
 
 import bstore.bookstore.dto.book.BookDto;
+import bstore.bookstore.dto.book.BookDtoWithoutCategoryIds;
 import bstore.bookstore.dto.book.BookSearchParams;
 import bstore.bookstore.dto.book.CreateBookRequestDto;
 import bstore.bookstore.exception.EntityNotFoundException;
@@ -8,6 +9,7 @@ import bstore.bookstore.mapper.BookMapper;
 import bstore.bookstore.model.Book;
 import bstore.bookstore.repository.book.BookRepository;
 import bstore.bookstore.repository.book.BookSpecBuilder;
+import bstore.bookstore.service.BookService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -28,16 +30,17 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto findBookById(Long id) {
+    public BookDtoWithoutCategoryIds findBookById(Long id) {
         Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
-        return bookMapper.toDto(book);
+                    .orElseThrow(() -> new EntityNotFoundException(
+                            "Book not found with id: " + id));
+        return bookMapper.toDtoWithoutCategories(book);
     }
 
     @Override
-    public List<BookDto> findAll(Pageable pageable) {
+    public List<BookDtoWithoutCategoryIds> findAll(Pageable pageable) {
         return bookRepository.findAll(pageable).stream()
-                .map(bookMapper::toDto)
+                .map(bookMapper::toDtoWithoutCategories)
                 .toList();
     }
 
