@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-admin-role-to-specific-user
+      author: Oleh B
+      preConditions:
+        - onFail: MARK_RAN
+        - and:
+            - sqlCheck:
+                expectedResult: 1
+                sql: "SELECT COUNT(*) FROM users WHERE email = 'admin@example.com'"
+            - sqlCheck:
+                expectedResult: 0
+                sql: "SELECT COUNT(*) FROM users_roles ur 
+                      JOIN users u ON ur.user_id = u.id 
+                      JOIN roles r ON ur.role_id = r.id 
+                      WHERE u.email = 'admin@example.com' AND r.name = 'ROLE_ADMIN'"
+      changes:
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: "(SELECT id FROM users WHERE email = 'admin@example.com')"
+              - column:
+                  name: role_id
+                  valueComputed: "(SELECT id FROM roles WHERE name = 'ROLE_ADMIN')"
