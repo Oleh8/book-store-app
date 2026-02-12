@@ -4,9 +4,16 @@ databaseChangeLog:
       author: Oleh B
       preConditions:
         - onFail: MARK_RAN
-        - sqlCheck:
-            expectedResult: 1
-            sql: "SELECT COUNT(*) FROM users WHERE email = 'admin@example.com'"
+        - and:
+            - sqlCheck:
+                expectedResult: 1
+                sql: "SELECT COUNT(*) FROM users WHERE email = 'admin@example.com'"
+            - sqlCheck:
+                expectedResult: 0
+                sql: "SELECT COUNT(*) FROM users_roles ur 
+                      JOIN users u ON ur.user_id = u.id 
+                      JOIN roles r ON ur.role_id = r.id 
+                      WHERE u.email = 'admin@example.com' AND r.name = 'ROLE_ADMIN'"
       changes:
         - insert:
             tableName: users_roles
