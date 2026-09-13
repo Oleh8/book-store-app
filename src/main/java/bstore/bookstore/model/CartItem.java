@@ -12,14 +12,10 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE cart_items SET is_deleted = true WHERE id = ?")
-@SQLRestriction(value = "is_deleted=false")
 @Table(name = "cart_items")
 public class CartItem {
     @Id
@@ -34,7 +30,4 @@ public class CartItem {
     private Book book;
     @Column(nullable = false)
     private int quantity;
-    @Column(nullable = false, columnDefinition = "TINYINT(1)")
-    private boolean isDeleted = false;
-
 }
