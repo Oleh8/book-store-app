@@ -1,7 +1,9 @@
 package bstore.bookstore.controller;
 
+import bstore.bookstore.dto.book.BookDto;
 import bstore.bookstore.dto.category.CategoryDto;
 import bstore.bookstore.dto.category.CreateCategoryDto;
+import bstore.bookstore.service.BookService;
 import bstore.bookstore.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,10 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/categories")
 @Tag(name = "Category", description = "Category management endpoints")
 public class CategoryController {
     private final CategoryService categoryService;
+    private final BookService bookService;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping
@@ -52,8 +55,9 @@ public class CategoryController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     @Operation(summary = "Update category")
-    public CategoryDto updateCategory(@Valid CategoryDto categoryDto) {
-        return categoryService.update(categoryDto.getId(), categoryDto);
+    public CategoryDto updateCategory(@PathVariable Long id,
+                                      @RequestBody @Valid CreateCategoryDto categoryDto) {
+        return categoryService.update(id, categoryDto);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -62,5 +66,12 @@ public class CategoryController {
     @Operation(summary = "Delete category by id")
     public void deleteCategoryById(@PathVariable Long id) {
         categoryService.deleteById(id);
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("{id}/books")
+    @Operation(summary = "Find all books of category specified by id")
+    public List<BookDto> findAllBooksByCategoryId(@PathVariable Long id, Pageable pageable) {
+        return bookService.findAllByCategoriesId(id, pageable);
     }
 }

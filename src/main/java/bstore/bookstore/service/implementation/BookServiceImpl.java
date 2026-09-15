@@ -57,6 +57,13 @@ public class BookServiceImpl implements BookService {
         return bookMapper.toDto(bookRepository.save(book));
     }
 
+    @Override
+    public List<BookDto> findAllByCategoriesId(Long categoryId, Pageable pageable) {
+        return bookRepository.findAllByCategoryId(categoryId).stream()
+                .map(bookMapper::toDto)
+                .toList();
+    }
+
     public List<BookDto> search(BookSearchParams bookSearchParams, Pageable pageable) {
         Specification<Book> bookSpecification = bookSpecBuilder.build(bookSearchParams);
         return bookRepository.findAll(bookSpecification, pageable)

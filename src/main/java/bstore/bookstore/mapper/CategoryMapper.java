@@ -5,6 +5,7 @@ import bstore.bookstore.dto.category.CategoryDto;
 import bstore.bookstore.dto.category.CreateCategoryDto;
 import bstore.bookstore.model.Category;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 @Mapper(config = MapperConfig.class)
 public interface CategoryMapper {
@@ -12,4 +13,6 @@ public interface CategoryMapper {
     CategoryDto toDto(Category category);
 
     Category toEntity(CreateCategoryDto createCategoryDto);
+
+    void updateCategory(CreateCategoryDto createCategoryDto, @MappingTarget Category category);
 }

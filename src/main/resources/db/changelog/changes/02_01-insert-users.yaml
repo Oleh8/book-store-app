@@ -14,7 +14,7 @@ databaseChangeLog:
                   value: first.admin@example.com
               - column:
                   name: password
-                  value: 12345678
+                  value: "$2a$10$Wy4Uta7P9wNt2GyTBnYkQeyv7lFREhHkwDtzOtlxsnxohD73C0IJO"
               - column:
                   name: first_name
                   value: "Jane"
@@ -35,7 +35,7 @@ databaseChangeLog:
                   value: first.user@example.com
               - column:
                   name: password
-                  value: 11111111
+                  value: "$2a$10$Xm5T61iM9l6Fsh/UjUq6buTzXpM30E26uN.7r1eK6vO9kG1I8fWvG"
               - column:
                   name: first_name
                   value: "John"

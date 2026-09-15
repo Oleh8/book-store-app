@@ -21,7 +21,7 @@ public class BookSpecBuilder implements SpecificationBuilder<Book> {
 
     @Override
     public Specification<Book> build(BookSearchParams bookSearchParams) {
-        Specification<Book> specification = Specification.where((Specification<Book>) null);
+        Specification<Book> specification = Specification.allOf();
         if (bookSearchParams.title() != null && bookSearchParams.title().length > 0) {
             specification = specification.and(specProviderManager.getProvider(TITLE)
                     .getSpecification(bookSearchParams.title()));

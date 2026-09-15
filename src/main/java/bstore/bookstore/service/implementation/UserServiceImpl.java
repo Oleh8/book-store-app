@@ -9,6 +9,7 @@ import bstore.bookstore.model.Role;
 import bstore.bookstore.model.User;
 import bstore.bookstore.repository.role.RoleRepository;
 import bstore.bookstore.repository.user.UserRepository;
+import bstore.bookstore.service.ShoppingCartService;
 import bstore.bookstore.service.UserService;
 import jakarta.transaction.Transactional;
 import java.util.Set;
@@ -24,6 +25,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final ShoppingCartService shoppingCartService;
 
     @Override
     public UserResponseDto registerUser(UserRegistrationRequestDto requestDto)
@@ -43,6 +45,9 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Set.of(userRole));
 
         userRepository.save(user);
+
+        shoppingCartService.createShoppingCartForUser(user);
+
         return userMapper.toDto(user);
     }
 }
